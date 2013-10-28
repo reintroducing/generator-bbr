@@ -287,9 +287,9 @@ module.exports = function (grunt) {
                 files: {
                     src: [
                         '<%%= yeoman.dist %>/js/{,*/}*.js',
-                        '<%%= yeoman.dist %>/css/{,*/}*.css',
-                        '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                        '<%= yeoman.dist %>/css/fonts/{,*/}*.*'
+                        '<%%= yeoman.dist %>/css/{,*/}*.css'
+                        // '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                        // '<%= yeoman.dist %>/css/fonts/{,*/}*.*'
                     ]
                 }
             }
@@ -346,9 +346,7 @@ module.exports = function (grunt) {
         'useminPrepare',
         'requirejs',
         'htmlmin',
-        'concat',
         'cssmin',
-        'uglify',
         'copy',
         'imageoptim',
         'rev',
