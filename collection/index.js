@@ -16,8 +16,10 @@ function Generator() {
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createControllerFiles = function createControllerFiles() {
-  var ext = '.js';
-  var destFile = path.join('app/js/collections', this.name + ext);
+  var ext = '.js',
+      directory = (typeof this.dirPath !== 'undefined') ? '/' + this.dirPath : '';
+
+  var destFile = path.join('app/js/collections' + directory + '/', this.name + ext);
   var template = [
     'define([',
     '    \'underscore\',',

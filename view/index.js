@@ -9,16 +9,17 @@ module.exports = Generator;
 function Generator() {
   scriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
-
 }
 
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  var ext = '.js';
-  var templateExt = '.ejs';
-  this.jst_path = 'app/js/templates/' + this.name + templateExt;
-  var destFile = path.join('app/js/views', this.name + ext);
+  var ext = '.js',
+      templateExt = '.ejs',
+      directory = (typeof this.dirPath !== 'undefined') ? '/' + this.dirPath : '';
+
+  this.jst_path = 'app/js/templates' + directory + '/' + this.name + templateExt;
+  var destFile = path.join('app/js/views' + directory + '/', this.name + ext);
 
   this.template('view.ejs', this.jst_path);
 

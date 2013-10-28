@@ -13,10 +13,6 @@ function Generator(args, options, config) {
 
   args = ['application'];
 
-  // if (this.options['template-framework']) {
-  //   this.env.options['template-framework'] = this.options['template-framework'];
-  // }
-
   if (this.options['test-framework']) {
     this.env.options['test-framework'] = this.options['test-framework'];
   }

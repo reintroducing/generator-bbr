@@ -42,6 +42,17 @@ yo bbr:view blog
 grunt server
 ```
 
+You could also optionally pass a second parameter to the subgenerator that will define the directory structure to put the files into:
+
+```
+yo bbr:model modelname directory/to/put/it
+yo bbr:collection collectionname directory/to/put/it
+yo bbr:router routername directory/to/put/it
+yo bbr:view viewname directory/to/put/it
+```
+
+**NOTE: Do not put beginning or trailing slashes on the directory structure!**
+
 
 ## Options
 

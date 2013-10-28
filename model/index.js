@@ -30,8 +30,10 @@ function Generator() {
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createModelFiles = function createModelFiles() {
-  var ext = '.js';
-  var destFile = path.join('app/js/models', this.name + ext);
+  var ext = '.js',
+      directory = (typeof this.dirPath !== 'undefined') ? '/' + this.dirPath : '';
+
+  var destFile = path.join('app/js/models' + directory + '/', this.name + ext);
   var template = [
     'define([',
     '    \'underscore\',',

@@ -18,26 +18,10 @@ var Generator = module.exports = function Generator() {
     sourceRoot += '-min';
   }
 
-  if (typeof this.env.options.coffee === 'undefined') {
-    this.option('coffee');
-
-    // attempt to detect if user is using CS or not
-    // if cml arg provided, use that; else look for the existence of cs
-    if (!this.options.coffee &&
-      this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
-      this.options.coffee = true;
-    }
-
-    this.env.options.coffee = this.options.coffee;
-  }
-
   var sourceRoot = '/templates/';
   this.scriptSuffix = '.js';
 
-  if (this.env.options.coffee) {
-    sourceRoot = '/templates/coffeescript';
-    this.scriptSuffix = '.coffee';
-  }
+  this.dirPath = arguments[0][1];
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
 };
