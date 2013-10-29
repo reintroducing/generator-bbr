@@ -74,34 +74,6 @@ Generator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
-// Generator.prototype.writeIndex = function writeIndex() {
-//   if (this.includeRequireJS) {
-//     return;
-//   }
-
-//   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
-//   this.indexFile = this.engine(this.indexFile, this);
-
-//   var vendorJS = [
-//     'js/libs/jquery/jquery.js',
-//     'js/libs/underscore/underscore.js',
-//     'js/libs/backbone/backbone.js'
-//   ];
-
-//   this.indexFile = this.appendScripts(this.indexFile, 'js/vendor.js', vendorJS);
-
-//   this.indexFile = this.appendFiles({
-//     html: this.indexFile,
-//     fileType: 'js',
-//     searchPath: ['.tmp', 'app'],
-//     optimizedPath: 'js/main.js',
-//     sourceFileList: [
-//       'js/main.js',
-//       'js/templates.js'
-//     ]
-//   });
-// };
-
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
   if (!this.includeRequireJS) {
     return;
