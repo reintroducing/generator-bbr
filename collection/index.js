@@ -25,7 +25,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
     '    \'underscore\',',
     '    \'backbone\',',
     '    \'models/' + this.name + '\'',
-    '], function (_, Backbone, ' + this._.classify(this.name) + 'Model' + ') {',
+    '], function(_, Backbone, ' + this._.classify(this.name) + 'Model' + ') {',
     '    \'use strict\';',
     '',
     '    var ' + this._.classify(this.name) + 'Collection = Backbone.Collection.extend({',

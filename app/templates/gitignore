@@ -3,6 +3,7 @@ dist
 test/temp
 .sass-cache
 app/bower_components
+app/js/libs
 .tmp
 test/bower_components/
 npm-debug.log

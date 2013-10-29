@@ -24,7 +24,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
     'define([',
     '    \'jquery\',',
     '    \'backbone\'',
-    '], function ($, Backbone) {',
+    '], function($, Backbone) {',
     '    \'use strict\';',
     '',
     '    var ' + this._.classify(this.name) + 'Router = Backbone.Router.extend({',

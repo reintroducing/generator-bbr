@@ -15,7 +15,7 @@ var Generator = module.exports = function Generator(args, options, config) {
   }
 
   this.testFramework = this.options['test-framework'] || 'mocha';
-  this.templateFramework = this.options['template-framework'] || 'lodash';
+  this.templateFramework = 'lodash';
   this.hookFor(this.testFramework, {
     as: 'app',
     options: {
@@ -41,7 +41,7 @@ Generator.prototype.askFor = function askFor() {
 
   // welcome message
   console.log(this.yeoman);
-  console.log('Out of the box I include jQuery, Backbone.js, RequireJS and Modernizr.');
+  console.log('Out of the box I include jQuery, Backbone.js, RequireJS, GSAP and Modernizr.');
 
   var prompts = [];
 
@@ -74,43 +74,33 @@ Generator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
-Generator.prototype.mainStylesheet = function mainStylesheet() {
-  var contentText = [
-    'body {\n    background: #fafafa;\n}',
-    '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
-  ];
-  var ext = '.css';
-  this.template('main.scss', 'app/sass/main.scss');
-  this.write('app/css/main' + ext, contentText.join('\n'));
-};
+// Generator.prototype.writeIndex = function writeIndex() {
+//   if (this.includeRequireJS) {
+//     return;
+//   }
 
-Generator.prototype.writeIndex = function writeIndex() {
-  if (this.includeRequireJS) {
-    return;
-  }
+//   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+//   this.indexFile = this.engine(this.indexFile, this);
 
-  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
-  this.indexFile = this.engine(this.indexFile, this);
+//   var vendorJS = [
+//     'js/libs/jquery/jquery.js',
+//     'js/libs/underscore/underscore.js',
+//     'js/libs/backbone/backbone.js'
+//   ];
 
-  var vendorJS = [
-    'bower_components/jquery/jquery.js',
-    'bower_components/underscore/underscore.js',
-    'bower_components/backbone/backbone.js'
-  ];
+//   this.indexFile = this.appendScripts(this.indexFile, 'js/vendor.js', vendorJS);
 
-  this.indexFile = this.appendScripts(this.indexFile, 'js/vendor.js', vendorJS);
-
-  this.indexFile = this.appendFiles({
-    html: this.indexFile,
-    fileType: 'js',
-    searchPath: ['.tmp', 'app'],
-    optimizedPath: 'js/main.js',
-    sourceFileList: [
-      'js/main.js',
-      'js/templates.js'
-    ]
-  });
-};
+//   this.indexFile = this.appendFiles({
+//     html: this.indexFile,
+//     fileType: 'js',
+//     searchPath: ['.tmp', 'app'],
+//     optimizedPath: 'js/main.js',
+//     sourceFileList: [
+//       'js/main.js',
+//       'js/templates.js'
+//     ]
+//   });
+// };
 
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
   if (!this.includeRequireJS) {
@@ -120,14 +110,14 @@ Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs()
   this.indexFile = this.engine(this.indexFile, this);
 
   this.indexFile = this.appendScripts(this.indexFile, 'js/main.js', [
-    'bower_components/requirejs/require.js'
+    'js/libs/requirejs/require.js'
   ], {'data-main': 'js/main'});
 };
 
 Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app');
   this.mkdir('app/js');
-  this.mkdir('app/js/vendor/');
+  this.mkdir('app/js/libs/');
   this.mkdir('app/css');
   this.mkdir('app/sass');
   this.mkdir('app/images');
@@ -138,12 +128,20 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.write('app/index.html', this.indexFile);
 };
 
+Generator.prototype.mainStylesheet = function mainStylesheet() {
+  this.directory('mixins', 'app/sass/mixins');
+  this.template('_normalize.scss', 'app/sass/_normalize.scss');
+  this.template('_base.scss', 'app/sass/_base.scss');
+  this.template('main.scss', 'app/sass/main.scss');
+};
+
 Generator.prototype.mainJs = function mainJs() {
   this.sourceRoot(path.join(__dirname, '../templates'));
 
-  var mainJsFile = this.engine(this.read('requirejs_app.js'), this),
-      abstractView = this.engine(this.read('abstract.js'), this);
+  var mainJsFile = this.engine(this.read('main.js'), this);
 
   this.write('app/js/main.js', mainJsFile);
-  this.write('app/js/views/abstract.js', abstractView);
+  this.template('../templates/app.js', 'app/js/app.js');
+  this.template('../templates/router.js', 'app/js/router/router.js');
+  this.template('../templates/abstract.js', 'app/js/views/abstract.js');
 };

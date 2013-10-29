@@ -1,0 +1,9 @@
+@mixin font-family($family: "Arial") {
+    @if $family == "Arial" {
+        font-family: Arial, sans-serif;
+    } @else if $family == "Montserrat" {
+        font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    } @else if $family == "proxima_nova" {
+        font-family: "proxima_nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+}

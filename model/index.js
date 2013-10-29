@@ -38,7 +38,7 @@ Generator.prototype.createModelFiles = function createModelFiles() {
     'define([',
     '    \'underscore\',',
     '    \'backbone\'',
-    '], function (_, Backbone) {',
+    '], function(_, Backbone) {',
     '    \'use strict\';',
     '',
     '    var ' + this._.classify(this.name) + 'Model = Backbone.Model.extend({',

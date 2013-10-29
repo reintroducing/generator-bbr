@@ -41,24 +41,27 @@ module.exports = function (grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
+                    'Gruntfile.js',
                     '<%%= yeoman.app %>/*.html',
                     '{.tmp,<%%= yeoman.app %>}/css/{,*/}*.css',
                     '{.tmp,<%%= yeoman.app %>}/js/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%%= yeoman.app %>/js/templates/*.ejs',
-                    'test/spec/**/*.js'
+                    '<%%= yeoman.app %>/js/templates/**/*.ejs',
+                    'test/spec/{,*/}*.js'
                 ]
             },
             jst: {
-                files: [
-                    '<%%= yeoman.app %>/js/templates/*.ejs'
-                ],
+                files: ['<%%= yeoman.app %>/js/templates/**/*.ejs'],
                 tasks: ['jst']
             },
-            test: {
-                files: ['<%%= yeoman.app %>/js/{,*/}*.js', 'test/spec/**/*.js'],
-                tasks: ['test']
+            scripts: {
+                files: ['<%%= yeoman.app %>/js/**/*.js'],
+                tasks: ['jshint']
             }
+            // test: {
+            //     files: ['<%%= yeoman.app %>/js/{,*/}*.js', 'test/spec/**/*.js'],
+            //     tasks: ['test']
+            // }
         },
         connect: {
             options: {
@@ -134,7 +137,7 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 '<%%= yeoman.app %>/js/{,*/}*.js',
-                '!<%%= yeoman.app %>/js/vendor/*',
+                '!<%%= yeoman.app %>/js/libs/*',
                 'test/spec/{,*/}*.js'
             ]
         }<% if (testFramework === 'mocha') { %>,
@@ -153,9 +156,9 @@ module.exports = function (grunt) {
                     keepRunner: true,
                     specs : 'test/spec/**/*.js',
                     vendor : [
-                        '<%%= yeoman.app %>/bower_components/jquery/jquery.js',
-                        '<%%= yeoman.app %>/bower_components/underscore/underscore.js',
-                        '<%%= yeoman.app %>/bower_components/backbone/backbone.js',
+                        '<%%= yeoman.app %>/js/libs/jquery/jquery.js',
+                        '<%%= yeoman.app %>/js/libs/underscore/underscore.js',
+                        '<%%= yeoman.app %>/js/libs/backbone/backbone.js',
                         '.tmp/js/templates.js'
                     ]
                 }
@@ -168,7 +171,6 @@ module.exports = function (grunt) {
                 imagesDir: '<%%= yeoman.app %>/images',
                 javascriptsDir: '<%%= yeoman.app %>/js',
                 fontsDir: '<%%= yeoman.app %>/css/fonts',
-                importPath: '<%%= yeoman.app %>/bower_components',
                 relativeAssets: true
             },
             dist: {},
@@ -206,8 +208,8 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%%= yeoman.dist %>/css/{,*/}*.css'],
+            html: ['<%%= yeoman.dist %>/**/*.html'],
+            css: ['<%%= yeoman.dist %>/css/**/*.css'],
             options: {
                 assetsDirs: ['<%%= yeoman.dist %>']
             }
@@ -224,8 +226,8 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%%= yeoman.dist %>/css/main.css': [
-                        '.tmp/css/{,*/}*.css',
-                        '<%%= yeoman.app %>/css/{,*/}*.css'
+                        '.tmp/css/**/*.css',
+                        '<%%= yeoman.app %>/css/**/*.css'
                     ]
                 }
             }
@@ -269,7 +271,7 @@ module.exports = function (grunt) {
         },
         bower: {
             all: {
-                rjsConfig: '<%%= yeoman.app %>/scripts/main.js'
+                rjsConfig: '<%%= yeoman.app %>/js/main.js'
             }
         },
         jst: {
@@ -277,8 +279,13 @@ module.exports = function (grunt) {
                 amd: true
             },
             compile: {
+                options: {
+                    templateSettings: {
+                        variable: 'data'
+                    }
+                },
                 files: {
-                    '.tmp/js/templates.js': ['<%%= yeoman.app %>/js/templates/*.ejs']
+                    '.tmp/js/templates.js': ['<%%= yeoman.app %>/js/templates/**/*.ejs']
                 }
             }
         },
@@ -346,16 +353,14 @@ module.exports = function (grunt) {
         'useminPrepare',
         'requirejs',
         'htmlmin',
+        'concat',
         'cssmin',
+        'uglify',
         'copy',
         'imageoptim',
         'rev',
         'usemin'
     ]);
 
-    grunt.registerTask('default', [
-        'jshint',
-        // 'test',
-        'build'
-    ]);
+    grunt.registerTask('default', ['server']);
 };
