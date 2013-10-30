@@ -74,6 +74,10 @@ Generator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
+Generator.prototype.configRB = function packageJSON() {
+  this.template('config.rb', 'config.rb');
+};
+
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
   if (!this.includeRequireJS) {
     return;
@@ -93,6 +97,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/css');
   this.mkdir('app/sass');
   this.mkdir('app/images');
+  this.mkdir('app/jade');
   this.template('app/404.html');
   this.template('app/favicon.ico');
   this.template('app/robots.txt');

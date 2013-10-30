@@ -4,7 +4,7 @@ Maintainer: [Matt Przybylski](https://github.com/reintroducing)
 
 A Backbone generator that uses RequireJS for Yeoman that provides a functional boilerplate Backbone app out of the box. You also get access to a number of sub-generators which can be used to easily create individual models, views, collections and so on.
 
-This is technically a fork of the [official Yeoman Backbone.js generator](https://github.com/yeoman/generator-backbone) that has been heavily edited to suit my needs and coding style.  I've removed anything that I don't use or that I viewed as unnecessary.
+This is technically a fork of the [official Yeoman Backbone.js generator](https://github.com/yeoman/generator-backbone) that has been heavily edited to suit my needs and coding style.  I've added Jade templating and removed anything that I don't use or that I viewed as unnecessary.
 
 
 ## Usage

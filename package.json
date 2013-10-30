@@ -8,18 +8,16 @@
     "framework",
     "mvc",
     "backbone",
-    "require"
+    "require",
+    "gsap"
   ],
-  "homepage": "https://github.com/yeoman/generator-backbone",
-  "bugs": "https://github.com/yeoman/generator-backbone/issues",
-  "author": "Chrome Developer Relations",
+  "homepage": "https://github.com/reintroducing/generator-bbr",
+  "bugs": "https://github.com/reintroducing/generator-bbr/issues",
+  "author": "Matt Przybylski",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/generator-backbone.git"
-  },
-  "scripts": {
-    "test": "mocha --reporter spec"
+    "url": "git://github.com/reintroducing/generator-bbr.git"
   },
   "dependencies": {
     "yeoman-generator": "~0.13.0"
@@ -37,7 +35,7 @@
   },
   "licenses": [
     {
-      "type": "BSD"
+      "type": "MIT"
     }
   ]
 }

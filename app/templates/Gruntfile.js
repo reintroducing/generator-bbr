@@ -28,35 +28,39 @@ module.exports = function (grunt) {
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
-            options: {
-                nospawn: true,
-                livereload: true
-            },
-            compass: {
-                files: ['<%%= yeoman.app %>/sass/{,*/}*.{scss,sass}'],
-                tasks: ['compass']
+            scss: {
+                files: ['<%%= yeoman.app %>/sass/**/*.{scss,sass}'],
+                tasks: ['compass:server']
             },
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    'Gruntfile.js',
-                    '<%%= yeoman.app %>/*.html',
                     '{.tmp,<%%= yeoman.app %>}/css/{,*/}*.css',
-                    '{.tmp,<%%= yeoman.app %>}/js/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%%= yeoman.app %>/js/templates/**/*.ejs',
                     'test/spec/{,*/}*.js'
                 ]
             },
-            jst: {
-                files: ['<%%= yeoman.app %>/js/templates/**/*.ejs'],
-                tasks: ['jst']
+            markup: {
+                files: ['<%%= yeoman.app %>/*.html'],
+                options: {
+                    livereload: true
+                }
             },
             scripts: {
-                files: ['<%%= yeoman.app %>/js/**/*.js'],
-                tasks: ['jshint']
+                files: ['Gruntfile.js', '<%%= yeoman.app %>/js/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    livereload: true
+                }
+            },
+            jade: {
+                files: ['<%%= yeoman.app %>/jade/**/*.jade'],
+                tasks: ['jade', 'jst'],
+                options: {
+                    livereload: true
+                }
             }
             // test: {
             //     files: ['<%%= yeoman.app %>/js/{,*/}*.js', 'test/spec/**/*.js'],
@@ -166,18 +170,33 @@ module.exports = function (grunt) {
         }<% } %>,
         compass: {
             options: {
-                sassDir: '<%%= yeoman.app %>/sass',
-                cssDir: '.tmp/css',
-                imagesDir: '<%%= yeoman.app %>/images',
-                javascriptsDir: '<%%= yeoman.app %>/js',
-                fontsDir: '<%%= yeoman.app %>/css/fonts',
-                relativeAssets: true
+                config: 'config.rb'
             },
-            dist: {},
+            dist: {
+                options: {
+                    environment: 'production',
+                    force: true
+                }
+            },
             server: {
                 options: {
+                    environment: 'development',
                     debugInfo: true
                 }
+            }
+        },
+        jade: {
+            dist: {
+                options: {
+                    pretty: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%%= yeoman.app %>/jade',
+                    src: ['**/*.jade'],
+                    dest: '<%%= yeoman.app %>/js/templates',
+                    ext: '.ejs'
+                }]
             }
         },
         requirejs: {
@@ -226,8 +245,8 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%%= yeoman.dist %>/css/main.css': [
-                        '.tmp/css/**/*.css'
-                        // '<%%= yeoman.app %>/css/**/*.css'
+                        // '.tmp/css/**/*.css'
+                        '<%%= yeoman.app %>/css/**/*.css'
                     ]
                 }
             }
@@ -263,8 +282,9 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
-                        'css/fonts/{,*/}*.*'
+                        'css/fonts/{,*/}*.*',
+                        'images/**/*.{png,jpg,jpeg,gif,webp}',
+                        '!images/sprite/**'
                     ]
                 }]
             }
@@ -315,6 +335,7 @@ module.exports = function (grunt) {
         if (target === 'test') {
             return grunt.task.run([
                 'clean:server',
+                'jade',
                 'createDefaultTemplate',
                 'jst',
                 'compass:server',
@@ -325,6 +346,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'jade',
             'createDefaultTemplate',
             'jst',
             'compass:server',
@@ -336,6 +358,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
+        'jade',
         'createDefaultTemplate',
         'jst',
         'compass',<% if(testFramework === 'mocha') { %>
@@ -347,6 +370,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'jade',
         'createDefaultTemplate',
         'jst',
         'compass:dist',
