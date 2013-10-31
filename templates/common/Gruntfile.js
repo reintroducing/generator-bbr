@@ -193,7 +193,10 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%%= yeoman.app %>/jade',
-                    src: ['**/*.jade'],
+                    src: [
+                        '**/*.jade',
+                        '!mixins/**/*.jade'
+                    ],
                     dest: '<%%= yeoman.app %>/js/templates',
                     ext: '.ejs'
                 }]

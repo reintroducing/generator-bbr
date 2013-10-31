@@ -95,6 +95,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/sass');
   this.mkdir('app/images');
   this.mkdir('app/jade');
+  this.mkdir('app/jade/mixins');
   this.template('common/app/404.html', 'app/404.html');
   this.template('common/app/favicon.ico', 'app/favicon.ico');
   this.template('common/app/robots.txt', 'app/robots.txt');
