@@ -2,8 +2,7 @@ node_modules
 dist
 test/temp
 .sass-cache
-app/bower_components
-app/js/libs
+app/js/libs/bower
 .tmp
 test/bower_components/
 npm-debug.log

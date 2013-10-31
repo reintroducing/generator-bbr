@@ -17,10 +17,10 @@ require.config({
         }
     },
     paths: {
-        jquery: '../js/libs/jquery/jquery',
-        backbone: '../js/libs/backbone/backbone',
-        underscore: '../js/libs/underscore/underscore',
-        tweenmax: '../js/libs/tweenMax/src/minified/TweenMax.min'
+        jquery: '../js/libs/bower/jquery/jquery',
+        backbone: '../js/libs/bower/backbone/backbone',
+        underscore: '../js/libs/bower/underscore/underscore',
+        tweenmax: '../js/libs/bower/tweenMax/src/minified/TweenMax.min'
     }
 });
 

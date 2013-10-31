@@ -50,7 +50,7 @@ Generator.prototype.askFor = function askFor() {
 
     function hasFeature(feat) { return features.indexOf(feat) !== -1; }
 
-    this.includeRequireJS = true;
+    // this.includeRequireJS = true;
 
     cb();
   }.bind(this));
@@ -79,14 +79,11 @@ Generator.prototype.configRB = function packageJSON() {
 };
 
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
-  if (!this.includeRequireJS) {
-    return;
-  }
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
   this.indexFile = this.engine(this.indexFile, this);
 
   this.indexFile = this.appendScripts(this.indexFile, 'js/main.js', [
-    'js/libs/requirejs/require.js'
+    'js/libs/bower/requirejs/require.js'
   ], {'data-main': 'js/main'});
 };
 
@@ -94,6 +91,8 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app');
   this.mkdir('app/js');
   this.mkdir('app/js/libs/');
+  this.mkdir('app/js/libs/bower');
+  this.mkdir('app/js/libs/vendor');
   this.mkdir('app/css');
   this.mkdir('app/sass');
   this.mkdir('app/images');

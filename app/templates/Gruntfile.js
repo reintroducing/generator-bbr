@@ -160,9 +160,9 @@ module.exports = function (grunt) {
                     keepRunner: true,
                     specs : 'test/spec/**/*.js',
                     vendor : [
-                        '<%%= yeoman.app %>/js/libs/jquery/jquery.js',
-                        '<%%= yeoman.app %>/js/libs/underscore/underscore.js',
-                        '<%%= yeoman.app %>/js/libs/backbone/backbone.js',
+                        '<%%= yeoman.app %>/js/libs/bower/jquery/jquery.js',
+                        '<%%= yeoman.app %>/js/libs/bower/underscore/underscore.js',
+                        '<%%= yeoman.app %>/js/libs/bower/backbone/backbone.js',
                         '.tmp/js/templates.js'
                     ]
                 }
