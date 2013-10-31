@@ -25,8 +25,8 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
-  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
-
+  this.sourceRoot(path.join(__dirname, '../templates'));
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'common/index.html'));
   this.on('end', function () {
     if (['app', 'bbr'].indexOf(this.generatorName) >= 0) {
       this.installDependencies({ skipInstall: this.options['skip-install'] });
@@ -50,36 +50,34 @@ Generator.prototype.askFor = function askFor() {
 
     function hasFeature(feat) { return features.indexOf(feat) !== -1; }
 
-    // this.includeRequireJS = true;
-
     cb();
   }.bind(this));
 };
 
 Generator.prototype.git = function git() {
-  this.copy('gitignore', '.gitignore');
-  this.copy('gitattributes', '.gitattributes');
+  this.copy('common/gitignore', '.gitignore');
+  this.copy('common/gitattributes', '.gitattributes');
 };
 
 Generator.prototype.bower = function bower() {
-  this.copy('bowerrc', '.bowerrc');
-  this.copy('_bower.json', 'bower.json');
+  this.copy('common/bowerrc', '.bowerrc');
+  this.copy('common/_bower.json', 'bower.json');
 };
 
 Generator.prototype.gruntfile = function gruntfile() {
-  this.template('Gruntfile.js');
+  this.template('common/Gruntfile.js', 'Gruntfile.js');
 };
 
 Generator.prototype.packageJSON = function packageJSON() {
-  this.template('_package.json', 'package.json');
+  this.template('common/_package.json', 'package.json');
 };
 
 Generator.prototype.configRB = function packageJSON() {
-  this.template('config.rb', 'config.rb');
+  this.template('common/config.rb', 'config.rb');
 };
 
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
-  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'common/index.html'));
   this.indexFile = this.engine(this.indexFile, this);
 
   this.indexFile = this.appendScripts(this.indexFile, 'js/main.js', [
@@ -97,27 +95,23 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/sass');
   this.mkdir('app/images');
   this.mkdir('app/jade');
-  this.template('app/404.html');
-  this.template('app/favicon.ico');
-  this.template('app/robots.txt');
-  this.copy('app/htaccess', 'app/.htaccess');
+  this.template('common/app/404.html', 'app/404.html');
+  this.template('common/app/favicon.ico', 'app/favicon.ico');
+  this.template('common/app/robots.txt', 'app/robots.txt');
+  this.copy('common/app/htaccess', 'app/.htaccess');
   this.write('app/index.html', this.indexFile);
 };
 
 Generator.prototype.mainStylesheet = function mainStylesheet() {
-  this.directory('mixins', 'app/sass/mixins');
-  this.template('_normalize.scss', 'app/sass/_normalize.scss');
-  this.template('_base.scss', 'app/sass/_base.scss');
-  this.template('main.scss', 'app/sass/main.scss');
+  this.directory('sass/mixins', 'app/sass/mixins');
+  this.template('sass/_normalize.scss', 'app/sass/_normalize.scss');
+  this.template('sass/_base.scss', 'app/sass/_base.scss');
+  this.template('sass/main.scss', 'app/sass/main.scss');
 };
 
 Generator.prototype.mainJs = function mainJs() {
-  this.sourceRoot(path.join(__dirname, '../templates'));
-
-  var mainJsFile = this.engine(this.read('main.js'), this);
-
-  this.write('app/js/main.js', mainJsFile);
-  this.template('../templates/app.js', 'app/js/app.js');
-  this.template('../templates/router.js', 'app/js/router/router.js');
-  this.template('../templates/abstract.js', 'app/js/views/abstract.js');
+  this.template('js/main.js', 'app/js/main.js');
+  this.template('js/app.js', 'app/js/app.js');
+  this.template('js/router-default.js', 'app/js/router/router.js');
+  this.template('js/abstract.js', 'app/js/views/abstract.js');
 };

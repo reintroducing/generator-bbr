@@ -8,7 +8,7 @@
     "requirejs": "~2.1.9",
     "requirejs-text": "~2.0.10",
     "modernizr": "~2.6.2",
-    "tweenMax": "~1.11.0"
+    "greensock": "~1.11.1"
   },
   "devDependencies": {}
 }

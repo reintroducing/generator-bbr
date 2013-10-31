@@ -1,71 +1,23 @@
-/*jshint latedef:false */
+'use strict';
+
 var path = require('path'),
-  util = require('util'),
-  yeoman = require('yeoman-generator'),
-  scriptBase = require('../script-base');
+    util = require('util'),
+    yeoman = require('yeoman-generator'),
+    scriptBase = require('../script-base');
 
-module.exports = Generator;
 
-function Generator() {
+var Generator = module.exports = function Generator() {
+  yeoman.generators.NamedBase.apply(this, arguments);
   scriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
-}
+};
 
-util.inherits(Generator, scriptBase);
+util.inherits(Generator, yeoman.generators.NamedBase, scriptBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  var ext = '.js',
-      templateExt = '.ejs',
-      directory = (typeof this.dirPath !== 'undefined') ? '/' + this.dirPath : '';
+  this.dirPath = (typeof this.arguments[1] !== 'undefined') ? '/' + this.arguments[1] : '';
+  this.jstPath = 'app/js/templates' + this.dirPath + '/' + this.name + '.ejs';
 
-  this.jst_path = 'app/js/templates' + directory + '/' + this.name + templateExt;
-  var destFile = path.join('app/js/views' + directory + '/', this.name + ext);
-
-  this.template('view.ejs', this.jst_path);
-
-  var template = [
-    'define([',
-    '    \'jquery\',',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'views/abstract\',',
-    '    \'templates\'',
-    '], function($, _, Backbone, AbstractView, JST) {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'View = AbstractView.extend({',
-    '        ' + 'template: JST[\'' + this.jst_path + '\'],',
-    '',
-    '        events: {},',
-    '',
-    '        /* ----------------------------------------------------------------------------- *\\',
-    '           Public Methods',
-    '        \\* ----------------------------------------------------------------------------- */',
-    '',
-    '        /**',
-    '        @method initialize',
-    '',
-    '        @return {null}',
-    '        **/',
-    '        initialize: function(opts) {',
-    '            AbstractView.prototype.initialize.apply(this, arguments);',
-    '        },',
-    '',
-    '        /**',
-    '        @method render',
-    '',
-    '        @return {' + this._.classify(this.name) + 'View}',
-    '        **/',
-    '        render: function() {',
-    '            this.$el.html(this.template());',
-    '',
-    '            return this;',
-    '        }',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'View;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
+  this.template('js/view.ejs', this.jstPath);
+  this.copy('js/view.js', 'app/js/views' + this.dirPath + '/' + this.name + '.js');
 };

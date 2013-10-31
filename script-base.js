@@ -21,8 +21,6 @@ var Generator = module.exports = function Generator() {
   var sourceRoot = '/templates/';
   this.scriptSuffix = '.js';
 
-  this.dirPath = arguments[0][1];
-
   this.sourceRoot(path.join(__dirname, sourceRoot));
 };
 

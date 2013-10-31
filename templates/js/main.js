@@ -20,7 +20,7 @@ require.config({
         jquery: '../js/libs/bower/jquery/jquery',
         backbone: '../js/libs/bower/backbone/backbone',
         underscore: '../js/libs/bower/underscore/underscore',
-        tweenmax: '../js/libs/bower/tweenMax/src/minified/TweenMax.min'
+        tweenmax: '../js/libs/bower/greensock/src/minified/TweenMax.min'
     }
 });
 

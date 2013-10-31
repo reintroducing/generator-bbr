@@ -1,40 +1,22 @@
-/*jshint latedef:false */
-var path = require('path');
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var scriptBase = require('../script-base');
+'use strict';
 
-module.exports = Generator;
+var path = require('path'),
+    util = require('util'),
+    yeoman = require('yeoman-generator'),
+    scriptBase = require('../script-base');
 
-function Generator() {
+
+var Generator = module.exports = function Generator() {
+  yeoman.generators.NamedBase.apply(this, arguments);
   scriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
+};
 
-  // required for collection.js template which uses `appname`
-}
+util.inherits(Generator, yeoman.generators.NamedBase, scriptBase);
 
-util.inherits(Generator, scriptBase);
+Generator.prototype.createViewFiles = function createViewFiles() {
+  this.dirPath = (typeof this.arguments[1] !== 'undefined') ? '/' + this.arguments[1] : '';
+  this.pathToModel = (typeof this.arguments[2] !== 'undefined') ? this.arguments[2] + '/' : '';
 
-Generator.prototype.createControllerFiles = function createControllerFiles() {
-  var ext = '.js',
-      directory = (typeof this.dirPath !== 'undefined') ? '/' + this.dirPath : '';
-
-  var destFile = path.join('app/js/collections' + directory + '/', this.name + ext);
-  var template = [
-    'define([',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'models/' + this.name + '\'',
-    '], function(_, Backbone, ' + this._.classify(this.name) + 'Model' + ') {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'Collection = Backbone.Collection.extend({',
-    '        ' + 'model: ' + this._.classify(this.name) + 'Model',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'Collection;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
+  this.copy('js/collection.js', 'app/js/collections' + this.dirPath + '/' + this.name + '.js');
 };

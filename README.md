@@ -51,6 +51,41 @@ yo bbr:router routername directory/to/put/it
 yo bbr:view viewname directory/to/put/it
 ```
 
+Collection subgenerators also take a third parameter (optional) that allows you to define the path to your model:
+
+```
+yo bbr:collection collectionname directory/to/put/it path/to/model
+```
+
+So, in the case that you have the following structure:
+
+```
+|-- js
+|   |-- models
+|       |-- test
+|           |-- test.js
+```
+
+And you want to create a collection for TestModel (the name of the model from test.js), you would run this:
+
+```
+yo bbr:collection test test test # first is name of collection, second is directory to create it in, third is path to model
+```
+
+This would generate the following:
+
+```
+|-- js
+|   |-- collections
+|       |-- test
+|           |-- test.js # TestCollection
+|   |-- models
+|       |-- test
+|           |-- test.js # TestModel
+```
+
+Now `TestCollection` references `TestModel` with the define statement looking for `models/test/test` and passing it in as `TestModel` for reference within the collection.
+
 **NOTE: Do not put beginning or trailing slashes on the directory structure!**
 
 
