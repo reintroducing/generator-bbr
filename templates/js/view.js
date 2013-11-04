@@ -8,6 +8,7 @@ define([
     'use strict';
 
     var <%= _.classify(name) %>View = AbstractView.extend({
+        className: '<%= name %>',
         template: JST['<%= jstPath %>'],
 
         events: {},
