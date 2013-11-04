@@ -1,6 +1,7 @@
 # Backbone.js/RequireJS generator [![Build Status](https://secure.travis-ci.org/reintroducing/generator-bbr.png?branch=master)](http://travis-ci.org/reintroducing/generator-bbr)
 
-Maintainer: [Matt Przybylski](https://github.com/reintroducing)
+Maintainer: [Matt Przybylski](https://github.com/reintroducing) <script data-gittip-username="reintroducing" data-gittip-widget="button" src="//gttp.co/v1.js">
+</script>
 
 A Backbone generator that uses RequireJS for Yeoman that provides a functional boilerplate Backbone app out of the box. You also get access to a number of sub-generators which can be used to easily create individual models, views, collections and so on.
 
