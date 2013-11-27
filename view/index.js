@@ -18,7 +18,7 @@ Generator.prototype.createViewFiles = function createViewFiles() {
   this.dirPath = (typeof this.arguments[1] !== 'undefined') ? '/' + this.arguments[1] : '';
   this.jstPath = 'app/js/templates' + this.dirPath + '/' + this.name + '.ejs';
   this.jadePath = 'app/jade' + this.dirPath + '/' + this.name + '.jade';
-  this.sassPath = 'app/sass' + this.dirPath + '/' + this.name + '.scss';
+  this.sassPath = 'app/sass/views' + this.dirPath + '/_' + this.name + '.scss';
 
   this.template('js/view.jade', this.jadePath);
   this.template('js/view.scss', this.sassPath);

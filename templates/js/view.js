@@ -4,7 +4,12 @@ define([
     'backbone',
     'views/abstract',
     'templates'
-], function($, _, Backbone, AbstractView, JST) {
+], function($,
+    _,
+    Backbone,
+    AbstractView,
+    JST) {
+
     'use strict';
 
     var <%= _.classify(name) %>View = AbstractView.extend({

@@ -1,7 +1,9 @@
 define([
     'underscore',
     'backbone'
-], function(_, Backbone) {
+], function(_,
+    Backbone) {
+
     'use strict';
 
     var <%= _.classify(name) %>Model = Backbone.Model.extend({

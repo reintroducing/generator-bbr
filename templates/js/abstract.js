@@ -1,14 +1,22 @@
 define([
+    'jquery',
     'underscore',
     'backbone'
-], function(_, Backbone) {
+], function($,
+    _,
+    Backbone) {
+
     'use strict';
 
-    var AbstractView = function (options) {
+    var AbstractView = function(options) {
         Backbone.View.apply(this, [options]);
     };
 
     _.extend(AbstractView.prototype, Backbone.View.prototype, {
+        /* ----------------------------------------------------------------------------- *\
+           Public Methods
+        \* ----------------------------------------------------------------------------- */
+
         /**
         Executed immediately when creating a new instance. Hides the containing element so that we can use the transitioning methods to show it.
 
