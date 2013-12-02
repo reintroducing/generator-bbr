@@ -218,7 +218,10 @@ module.exports = function (grunt) {
                     // required to support SourceMaps
                     // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
-                    useStrict: true
+                    useStrict: true,
+                    name: 'main',
+                    out: '<%%= yeoman.dist %>/js/main.js',
+                    mainConfigFile: '<%%= yeoman.app %>/js/main.js'
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
@@ -275,6 +278,22 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        uglify: {
+            dist: {
+                files: {
+                    '<%%= yeoman.dist %>/js/main.js': [
+                        '<%%= yeoman.dist %>/js/main.js'
+                    ]
+                }
+            },
+            requirejs: {
+                files: {
+                    '<%%= yeoman.dist %>/js/libs/bower/requirejs/require.js': [
+                        '<%%= yeoman.dist %>/js/libs/bower/requirejs/require.js'
+                    ]
+                }
+            }
+        },
         copy: {
             dist: {
                 files: [{
@@ -290,6 +309,10 @@ module.exports = function (grunt) {
                         '!images/sprite/**'
                     ]
                 }]
+            },
+            requirejs: {
+                src: '<%%= yeoman.app %>/js/libs/bower/requirejs/require.js',
+                dest: '<%%= yeoman.dist %>/js/libs/bower/requirejs/require.js'
             }
         },
         bower: {
@@ -382,8 +405,11 @@ module.exports = function (grunt) {
         'htmlmin',
         'concat',
         'cssmin',
-        'uglify',
-        'copy',
+        'uglify:dist',
+        'copy:dist',
+        'copy:requirejs',
+        'uglify:requirejs',
+        'uglify:generated',
         'imageoptim',
         // 'rev',
         'usemin'

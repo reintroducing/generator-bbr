@@ -26,7 +26,6 @@ var Generator = module.exports = function Generator(args, options, config) {
   });
 
   this.sourceRoot(path.join(__dirname, '../templates'));
-  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'common/index.html'));
   this.on('end', function () {
     if (['app', 'bbr'].indexOf(this.generatorName) >= 0) {
       this.installDependencies({ skipInstall: this.options['skip-install'] });
@@ -79,10 +78,7 @@ Generator.prototype.configRB = function packageJSON() {
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'common/index.html'));
   this.indexFile = this.engine(this.indexFile, this);
-
-  this.indexFile = this.appendScripts(this.indexFile, 'js/main.js', [
-    'js/libs/bower/requirejs/require.js'
-  ], {'data-main': 'js/main'});
+  this.indexFile = this.append(this.indexFile, 'body', '\n        <script data-main="js/main" src="js/libs/bower/requirejs/require.js"></script>\n    ');
 };
 
 Generator.prototype.setupEnv = function setupEnv() {

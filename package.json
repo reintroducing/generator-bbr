@@ -1,6 +1,6 @@
 {
   "name": "generator-bbr",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Yeoman generator for RequireJS based Backbone apps.",
   "keywords": [
     "yeoman-generator",
