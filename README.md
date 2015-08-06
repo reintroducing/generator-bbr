@@ -1,3 +1,5 @@
+**DEPRECATED! Use [generator-threshold](https://github.com/reintroducing/generator-threshold) instead!**
+
 # Backbone.js/RequireJS generator [![Build Status](https://secure.travis-ci.org/reintroducing/generator-bbr.png?branch=master)](http://travis-ci.org/reintroducing/generator-bbr)
 
 Maintainer: [Matt Przybylski](https://github.com/reintroducing) <script data-gittip-username="reintroducing" data-gittip-widget="button" src="//gttp.co/v1.js">
